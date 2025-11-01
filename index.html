@@ -33,7 +33,6 @@
             overflow: hidden;
         }
 
-        /* Sidebar Styles */
         .sidebar {
             width: 100%;
             height: 100%;
@@ -198,7 +197,6 @@
             margin-left: 5px;
         }
 
-        /* Chat Area Styles */
         .chat-area {
             width: 100%;
             height: 100%;
@@ -433,7 +431,6 @@
             cursor: pointer;
         }
 
-        /* Mobile-specific styles */
         @media (max-width: 768px) {
             .app-container {
                 height: 100vh;
@@ -460,7 +457,6 @@
             }
         }
 
-        /* Desktop-specific styles */
         @media (min-width: 769px) {
             .app-container {
                 width: 90%;
@@ -606,7 +602,6 @@
             let lastClickTime = 0;
             const resetClickTimeout = 1000;
             
-            // New variables for message queue and typing indicator
             let isWaitingForReply = false;
             let messageQueue = [];
             let typingIndicator = null;
@@ -762,68 +757,55 @@
                 const message = messageInput.value.trim();
                 if (message === '') return;
 
-                // If we're waiting for a reply, add message to queue
                 if (isWaitingForReply) {
                     messageQueue.push(message);
                     messageInput.value = '';
                     return;
                 }
 
-                // Otherwise, send the message immediately
                 isWaitingForReply = true;
                 updateSendButtonState();
                 
                 addMessage(message, true);
                 messageInput.value = '';
                 
-                // Show typing indicator
                 showTypingIndicator();
                 
                 try {
                     const response = await fetch(`https://urfaris.onrender.com/ai/gf2?msg=${encodeURIComponent(message)}&user=${userId}`);
                     const data = await response.json();
                     
-                    // Hide typing indicator
                     hideTypingIndicator();
                     
-                    setTimeout(() => {
-                        if (data.reply) {
-                            const filteredReply = filterText(data.reply);
-                            addMessage(filteredReply, false);
-                        } else {
-                            addMessage("Sorry, I couldn't process your message.", false);
-                        }
-                        
-                        // Mark that we're no longer waiting for a reply
-                        isWaitingForReply = false;
-                        updateSendButtonState();
-                        
-                        // Process any queued messages
-                        if (messageQueue.length > 0) {
-                            const nextMessage = messageQueue.shift();
-                            messageInput.value = nextMessage;
-                            sendMessage();
-                        }
-                    }, 1500);
+                    if (data.reply) {
+                        const filteredReply = filterText(data.reply);
+                        addMessage(filteredReply, false);
+                    } else {
+                        addMessage("Sorry, I couldn't process your message.", false);
+                    }
+                    
+                    isWaitingForReply = false;
+                    updateSendButtonState();
+                    
+                    if (messageQueue.length > 0) {
+                        const nextMessage = messageQueue.shift();
+                        messageInput.value = nextMessage;
+                        sendMessage();
+                    }
                     
                 } catch (error) {
-                    // Hide typing indicator
                     hideTypingIndicator();
                     
-                    setTimeout(() => {
-                        addMessage("I'm having trouble connecting right now. Please try again later.", false);
-                        
-                        // Mark that we're no longer waiting for a reply
-                        isWaitingForReply = false;
-                        updateSendButtonState();
-                        
-                        // Process any queued messages
-                        if (messageQueue.length > 0) {
-                            const nextMessage = messageQueue.shift();
-                            messageInput.value = nextMessage;
-                            sendMessage();
-                        }
-                    }, 1500);
+                    addMessage("I'm having trouble connecting right now. Please try again later.", false);
+                    
+                    isWaitingForReply = false;
+                    updateSendButtonState();
+                    
+                    if (messageQueue.length > 0) {
+                        const nextMessage = messageQueue.shift();
+                        messageInput.value = nextMessage;
+                        sendMessage();
+                    }
                 }
             }
 
@@ -851,7 +833,6 @@
                 }
             });
 
-            // Initial view setup
             if (window.innerWidth <= 768) {
                 if (messages.length === 0) {
                     sidebar.classList.remove('hidden');
