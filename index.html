@@ -3,854 +3,1135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aarohi 🌼🦋</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Maxx Apks Hub</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/YFWbB87G/image.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.counter.dev/script.js" data-id="90b09118-96c6-4f11-871c-96ab1e75263f" data-utcoffset="5"></script>
+    <script src="https://cdn.jsdelivr.net/gh/NAUGHTY-BRAND/js-assets@main/inspect-blocker.js" async crossorigin="anonymous"></script>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00FFFF;
+            --neon-pink: #FF00FF;
+            --neon-green: #00FF00;
+            --neon-purple: #8B5CF6;
+            --neon-orange: #FF6B35;
+            --neon-yellow: #FFFF00;
+            --neon-blue: #0080FF;
+            --dark-bg: #0A0A0A;
+            --card-bg: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --text-muted: #888888;
+            --glass-bg: rgba(26, 26, 26, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-primary: #7B61FF;
+            --accent-secondary: #00D4FF;
+            --gradient-primary: linear-gradient(135deg, #7B61FF 0%, #00D4FF 100%);
+            --gradient-secondary: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%);
         }
 
         body {
-            background-color: #111b21;
-            height: 100vh;
-            color: #e9edef;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .app-container {
-            width: 100%;
-            height: 100vh;
-            background-color: #222e35;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
             position: relative;
-            overflow: hidden;
         }
 
-        .sidebar {
-            width: 100%;
-            height: 100%;
-            background-color: #111b21;
-            display: flex;
-            flex-direction: column;
-            position: absolute;
+        .background-animation {
+            position: fixed;
             top: 0;
             left: 0;
-            z-index: 10;
-            transform: translateX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
-
-        .sidebar-header {
-            background-color: #202c33;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #6a7175;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #111b21;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             overflow: hidden;
-            cursor: pointer;
+            pointer-events: none;
         }
 
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .sidebar-icons {
-            display: flex;
-            gap: 20px;
-            color: #aebac1;
-        }
-
-        .sidebar-icons i {
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .search-container {
-            padding: 10px 15px;
-            background-color: #111b21;
-        }
-
-        .search-box {
-            background-color: #202c33;
-            border-radius: 20px;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-box i {
-            color: #aebac1;
-            margin-right: 10px;
-        }
-
-        .search-box input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #e9edef;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        .chat-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 10px;
-        }
-
-        .chat-item {
-            display: flex;
-            padding: 15px;
-            border-bottom: 1px solid #222d34;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .chat-item:hover {
-            background-color: #1f2c33;
-        }
-
-        .chat-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #6a7175;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #111b21;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .chat-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .chat-info {
-            flex: 1;
-        }
-
-        .chat-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .chat-name {
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .chat-time {
-            font-size: 12px;
-            color: #aebac1;
-        }
-
-        .chat-preview {
-            font-size: 14px;
-            color: #8696a0;
-            display: flex;
-            align-items: center;
-        }
-
-        .read-receipt {
-            color: #53bdeb;
-            margin-left: 5px;
-        }
-
-        .chat-area {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            background-color: #0b141a;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2317222b' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        .gradient-orbs {
             position: absolute;
-            top: 0;
-            left: 0;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .chat-area.active {
-            transform: translateX(0);
-        }
-
-        .chat-header {
-            background-color: #202c33;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-
-        .chat-header-info {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-
-        .chat-header-name {
-            font-weight: 500;
-            margin-left: 15px;
-            font-size: 16px;
-        }
-
-        .chat-header-icons {
-            display: flex;
-            gap: 20px;
-            color: #aebac1;
-        }
-
-        .chat-header-icons i {
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        .messages-container {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 80px;
-        }
-
-        .message {
-            max-width: 85%;
-            padding: 8px 12px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            position: relative;
-            word-wrap: break-word;
-            font-size: 14px;
-        }
-
-        .received {
-            background-color: #202c33;
-            align-self: flex-start;
-            border-top-left-radius: 0;
-        }
-
-        .sent {
-            background-color: #005c4b;
-            align-self: flex-end;
-            border-top-right-radius: 0;
-        }
-
-        .message-time {
-            font-size: 11px;
-            color: #8696a0;
-            text-align: right;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 3px;
-        }
-
-        .typing-indicator {
-            background-color: #202c33;
-            align-self: flex-start;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border-top-left-radius: 0;
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            max-width: 85%;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 3px;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
             border-radius: 50%;
-            background-color: #8696a0;
-            animation: typing 1.4s infinite ease-in-out;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: floatOrbs 20s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(1) {
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-cyan);
+            top: 10%;
+            left: 10%;
             animation-delay: 0s;
         }
 
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-purple);
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
         }
 
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-pink);
+            bottom: 10%;
+            left: 20%;
+            animation-delay: -10s;
         }
 
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
+        @keyframes floatOrbs {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
             }
-            30% {
-                transform: translateY(-5px);
+            25% {
+                transform: translate(50px, -30px) scale(1.1);
+            }
+            50% {
+                transform: translate(-30px, 40px) scale(0.9);
+            }
+            75% {
+                transform: translate(-40px, -20px) scale(1.05);
             }
         }
 
-        .input-container {
-            background-color: #202c33;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            position: fixed;
-            bottom: 0;
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 12s infinite linear;
+            will-change: transform;
+        }
+
+        .particle.type-1 {
+            width: 4px;
+            height: 4px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .particle.type-2 {
+            width: 3px;
+            height: 3px;
+            background: var(--neon-pink);
+            box-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        .particle.type-3 {
+            width: 5px;
+            height: 5px;
+            background: var(--neon-green);
+            box-shadow: 0 0 12px var(--neon-green);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(100px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .header {
+            text-align: center;
+            padding: 4rem 1rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
             left: 0;
             width: 100%;
-            z-index: 10;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(123, 97, 255, 0.15), 
+                rgba(0, 212, 255, 0.15));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: -1;
         }
 
-        .input-icons {
-            display: flex;
-            gap: 15px;
-            color: #8696a0;
-            margin-right: 15px;
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            animation: shimmer 6s infinite;
+            z-index: -1;
         }
 
-        .input-icons i {
-            cursor: pointer;
-            font-size: 20px;
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
-        .message-input {
-            flex: 1;
-            background-color: #2a3942;
-            border: none;
+        .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(123, 97, 255, 0.5);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--text-primary);
+            font-size: 1rem;
             outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px rgba(123, 97, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .apks-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .apk-card {
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
-            padding: 12px 20px;
-            color: #e9edef;
-            font-size: 15px;
-        }
-
-        .send-button {
-            background-color: #005c4b;
-            color: #e9edef;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 15px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .send-button:hover {
-            background-color: #0a7c68;
-        }
-
-        .send-button i {
-            font-size: 18px;
-        }
-
-        .send-button.disabled {
-            background-color: #2a3942;
-            color: #8696a0;
-            cursor: not-allowed;
-        }
-
-        .empty-chat {
-            flex: 1;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
+            cursor: pointer;
+            will-change: transform;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .apk-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .apk-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(123, 97, 255, 0.2);
+        }
+
+        .apk-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .apk-image-container {
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .apk-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .apk-card:hover .apk-icon {
+            transform: scale(1.1);
+        }
+
+        .apk-info-container {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .apk-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .apk-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .apk-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .apk-action {
+            margin-top: 0.5rem;
+        }
+
+        .view-details-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        @media (min-width: 768px) {
+            .apks-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2.5rem;
+            }
+        }
+
+        .apk-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .apk-details-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(123, 97, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+        }
+
+        .apk-details-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .apk-details-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 0 auto 1.5rem;
+            display: block;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(123, 97, 255, 0.3);
+        }
+
+        .apk-details-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .apk-details-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .apk-details-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .apk-stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .apk-stat-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .apk-stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .apk-stat-value {
+            color: var(--accent-secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .apk-download-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.3);
+        }
+
+        .apk-download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(123, 97, 255, 0.4);
+        }
+
+        .close-details-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 20px;
+            transition: all 0.3s ease;
         }
 
-        .empty-chat-icon {
-            font-size: 80px;
-            color: #8696a0;
-            margin-bottom: 20px;
+        .close-details-btn:hover {
+            color: var(--neon-pink);
+            background: rgba(255, 0, 255, 0.2);
+            transform: rotate(90deg);
         }
 
-        .empty-chat-text {
-            color: #8696a0;
-            font-size: 14px;
-            max-width: 400px;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
-        .back-button {
-            background: none;
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(123, 97, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
-            color: #aebac1;
-            font-size: 20px;
-            margin-right: 15px;
+            color: var(--text-muted);
+            font-size: 1.5rem;
             cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .app-container {
-                height: 100vh;
-                max-height: -webkit-fill-available;
+        .close-btn:hover {
+            color: var(--neon-pink);
+            background: rgba(255, 0, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .social-links {
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: block;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent-primary);
+            background: rgba(123, 97, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .social-link.clicked {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 0, 0.1);
+            color: var(--neon-green);
+        }
+
+        .proceed-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.3);
+        }
+
+        .proceed-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.5;
+            box-shadow: none;
+        }
+
+        .proceed-btn:not(:disabled):hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(123, 97, 255, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(123, 97, 255, 0.3);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(123, 97, 255, 0.5);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 25%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.1) 75%);
+            background-size: 200% 100%;
+            animation: loading 2s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
             }
-            
-            .message {
-                max-width: 90%;
-            }
-            
-            .input-container {
-                padding: 10px;
-            }
-            
-            .input-icons {
-                gap: 10px;
-                margin-right: 10px;
-            }
-            
-            .send-button {
-                margin-left: 10px;
-                width: 45px;
-                height: 45px;
+            100% {
+                background-position: -200% 0;
             }
         }
 
-        @media (min-width: 769px) {
-            .app-container {
-                width: 90%;
-                max-width: 1600px;
-                height: 95vh;
-                margin: auto;
-                border-radius: 10px;
-                overflow: hidden;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                flex-direction: row;
-            }
-            
-            .sidebar {
-                width: 30%;
-                position: relative;
-                transform: none;
-            }
-            
-            .sidebar.hidden {
-                transform: none;
-                display: none;
-            }
-            
-            .chat-area {
-                width: 70%;
-                position: relative;
-                transform: none;
-            }
-            
-            .chat-area.active {
-                transform: none;
-            }
-            
-            .input-container {
-                position: relative;
-            }
-            
-            .back-button {
-                display: none;
+        .skeleton-card {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .skeleton-icon {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+        }
+
+        .skeleton-text {
+            height: 16px;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+
+        .skeleton-text.short {
+            width: 60%;
+            margin: 0 auto 0.8rem;
+        }
+
+        .skeleton-button {
+            height: 45px;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <div class="user-info">
-                    <div class="avatar">U</div>
-                    <span>You</span>
-                </div>
-                <div class="sidebar-icons">
-                    <i class="fas fa-circle-notch"></i>
-                    <i class="fas fa-message"></i>
-                    <i class="fas fa-ellipsis-vertical"></i>
-                </div>
-            </div>
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search or start new chat">
-                </div>
-            </div>
-            <div class="chat-list">
-                <div class="chat-item" id="gfChat">
-                    <div class="chat-avatar" id="profileAvatar">
-                        <img src="https://i.ibb.co/fY4x5bNZ/image.png" alt="Aarohi">
-                    </div>
-                    <div class="chat-info">
-                        <div class="chat-header">
-                            <div class="chat-name">Aarohi 🦋🌼</div>
-                            <div class="chat-time" id="lastMessageTime"></div>
-                        </div>
-                        <div class="chat-preview">
-                            <span id="lastMessagePreview">Tap to start chatting</span>
-                            <span class="read-receipt" id="readReceipt" style="display: none;">
-                                <i class="fas fa-check-double"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="background-animation" id="backgroundAnimation">
+        <div class="gradient-orbs orb-1"></div>
+        <div class="gradient-orbs orb-2"></div>
+        <div class="gradient-orbs orb-3"></div>
+    </div>
 
-        <div class="chat-area" id="chatArea">
-            <div class="chat-header">
-                <button class="back-button" id="backButton">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <div class="chat-header-info">
-                    <div class="avatar" id="chatHeaderAvatar">
-                        <img src="https://i.ibb.co/fY4x5bNZ/image.png" alt="Aarohi">
-                    </div>
-                    <div class="chat-header-name">Aarohi 🦋🌼</div>
+    <header class="header">
+        <h1 class="logo">Maxx Apks Hub</h1>
+        <p class="subtitle">Premium Modded Applications Collection</p>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search premium APKs...">
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Featured Applications</h2>
+        <div class="apks-grid" id="apksGrid"></div>
+    </main>
+
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="https://www.youtube.com/@iammaxx1" class="social-icon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://t.me/MAXXMODS1" class="social-icon" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://www.instagram.com/__maxx1_" class="social-icon" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+      <p class="copyright">
+        &copy; 2023-2025 <span style="color: var(--accent-secondary);">Maxx Apks Hub</span> | Premium Mods Collection
+      </p>
+    </footer>
+
+    <div class="apk-details-modal" id="apkDetailsModal">
+        <div class="apk-details-content">
+            <button class="close-details-btn" id="closeDetailsModal">&times;</button>
+            <div class="apk-details-header">
+                <img src="" alt="" class="apk-details-image" id="detailsImage">
+                <h3 class="apk-details-title" id="detailsTitle">APK Name</h3>
+                <p class="apk-details-description" id="detailsDescription">APK Description</p>
+            </div>
+            <div class="apk-details-stats">
+                <div class="apk-stat-item">
+                    <div class="apk-stat-label">Downloads</div>
+                    <div class="apk-stat-value" id="detailsDownloads">1000+</div>
                 </div>
-                <div class="chat-header-icons">
-                    <i class="fas fa-video"></i>
-                    <i class="fas fa-phone"></i>
-                    <i class="fas fa-ellipsis-vertical"></i>
+                <div class="apk-stat-item">
+                    <div class="apk-stat-label">Size</div>
+                    <div class="apk-stat-value" id="detailsSize">10MB</div>
+                </div>
+                <div class="apk-stat-item">
+                    <div class="apk-stat-label">Version</div>
+                    <div class="apk-stat-value" id="detailsVersion">v2.5.1</div>
+                </div>
+                <div class="apk-stat-item">
+                    <div class="apk-stat-label">Rating</div>
+                    <div class="apk-stat-value" id="detailsRating">4.8★</div>
                 </div>
             </div>
-            <div class="messages-container" id="messagesContainer">
-                <div class="empty-chat" id="emptyChat">
-                    <div class="empty-chat-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div class="empty-chat-text">
-                        <h3>Start a conversation with Aarohi 🦋🌼</h3>
-                        <p>Send a message to begin chatting</p>
-                    </div>
-                </div>
+            <button class="apk-download-btn" id="detailsDownloadBtn">
+                <i class="fas fa-download"></i> Download Premium APK
+            </button>
+        </div>
+    </div>
+
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Unlock Premium Download</h3>
+                <p class="modal-subtitle">Follow our channels to access premium mods:</p>
             </div>
-            <div class="input-container">
-                <div class="input-icons">
-                    <i class="fas fa-face-smile"></i>
-                    <i class="fas fa-paperclip"></i>
-                </div>
-                <input type="text" class="message-input" id="messageInput" placeholder="Type a message">
-                <div class="send-button" id="sendButton">
-                    <i class="fas fa-paper-plane"></i>
-                </div>
+            <div class="social-links">
+                <a href="https://tinyurl.com/nh2e57b9" class="social-link" id="telegramLink1" target="_blank">
+                    <i class="fab fa-telegram"></i> Join Telegram Channel
+                </a>
+                <a href="https://www.youtube.com/@iammaxx1" class="social-link" id="youtubeLink" target="_blank">
+                    <i class="fab fa-youtube"></i> Subscribe on YouTube
+                </a>
+                <a href="https://t.me/MAXXMODS1" class="social-link" id="telegramLink2" target="_blank">
+                    <i class="fab fa-telegram"></i> Join Second Channel
+                </a>
+                <a href="https://www.instagram.com/__maxx1_/" class="social-link" id="instagramLink" target="_blank">
+                    <i class="fab fa-instagram"></i> Follow on Instagram
+                </a>
             </div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                After following all channels, the download will be unlocked.
+            </p>
+            <button class="proceed-btn" id="proceedDownload" disabled>
+                <i class="fas fa-lock-open"></i> Unlock Download
+            </button>
         </div>
     </div>
 
     <script>
+        let apksData = [];
+        let filteredApks = [];
+        let currentDownloadUrl = '';
+        let currentApkData = null;
+        let clickedLinks = {
+            telegram1: false,
+            youtube: false,  
+            telegram2: false,
+            instagram: false
+        };
+
+        const apksGrid = document.getElementById('apksGrid');
+        const searchInput = document.getElementById('searchInput');
+        const downloadModal = document.getElementById('downloadModal');
+        const closeModal = document.getElementById('closeModal');
+        const proceedDownload = document.getElementById('proceedDownload');
+        const telegramLink1 = document.getElementById('telegramLink1');
+        const telegramLink2 = document.getElementById('telegramLink2');
+        const instagramLink = document.getElementById('instagramLink');
+        const youtubeLink = document.getElementById('youtubeLink');
+
+        const apkDetailsModal = document.getElementById('apkDetailsModal');
+        const closeDetailsModal = document.getElementById('closeDetailsModal');
+        const detailsImage = document.getElementById('detailsImage');
+        const detailsTitle = document.getElementById('detailsTitle');
+        const detailsDescription = document.getElementById('detailsDescription');
+        const detailsDownloads = document.getElementById('detailsDownloads');
+        const detailsSize = document.getElementById('detailsSize');
+        const detailsVersion = document.getElementById('detailsVersion');
+        const detailsRating = document.getElementById('detailsRating');
+        const detailsDownloadBtn = document.getElementById('detailsDownloadBtn');
+
         document.addEventListener('DOMContentLoaded', function() {
-            const messageInput = document.getElementById('messageInput');
-            const sendButton = document.getElementById('sendButton');
-            const messagesContainer = document.getElementById('messagesContainer');
-            const emptyChat = document.getElementById('emptyChat');
-            const sidebar = document.getElementById('sidebar');
-            const chatArea = document.getElementById('chatArea');
-            const gfChat = document.getElementById('gfChat');
-            const lastMessagePreview = document.getElementById('lastMessagePreview');
-            const lastMessageTime = document.getElementById('lastMessageTime');
-            const readReceipt = document.getElementById('readReceipt');
-            const profileAvatar = document.getElementById('profileAvatar');
-            const chatHeaderAvatar = document.getElementById('chatHeaderAvatar');
-            const backButton = document.getElementById('backButton');
+            createOptimizedBackgroundAnimation();
+            showSkeletonLoading();
+            fetchApks();
+            setupEventListeners();
+        });
 
-            let clickCount = 0;
-            let lastClickTime = 0;
-            const resetClickTimeout = 1000;
+        function createOptimizedBackgroundAnimation() {
+            const backgroundAnimation = document.getElementById('backgroundAnimation');
             
-            let isWaitingForReply = false;
-            let messageQueue = [];
-            let typingIndicator = null;
-
-            function generateUserId() {
-                const min = 1000000;
-                const max = 999999999999;
-                return Math.floor(Math.random() * (max - min + 1)) + min;
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                const particleType = Math.floor(Math.random() * 3) + 1;
+                particle.className = `particle type-${particleType}`;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 6 + 8) + 's';
+                backgroundAnimation.appendChild(particle);
             }
+        }
 
-            let userId = localStorage.getItem('userId');
-            if (!userId) {
-                userId = generateUserId();
-                localStorage.setItem('userId', userId);
-            }
+        function showSkeletonLoading() {
+            apksGrid.innerHTML = '';
+            const skeletonCount = window.innerWidth < 640 ? 6 : 12;
 
-            const messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
-            
-            function handleAvatarClick() {
-                const currentTime = new Date().getTime();
-                
-                if (currentTime - lastClickTime > resetClickTimeout) {
-                    clickCount = 0;
-                }
-                
-                clickCount++;
-                lastClickTime = currentTime;
-                
-                if (clickCount === 3) {
-                    localStorage.removeItem('chatMessages');
-                    localStorage.removeItem('userId');
-                    userId = generateUserId();
-                    localStorage.setItem('userId', userId);
-                    messages.length = 0;
-                    loadMessages();
-                    updateChatPreview();
-                    clickCount = 0;
-                }
-            }
-
-            profileAvatar.addEventListener('click', handleAvatarClick);
-            chatHeaderAvatar.addEventListener('click', handleAvatarClick);
-
-            function updateChatPreview() {
-                if (messages.length > 0) {
-                    const lastMessage = messages[messages.length - 1];
-                    lastMessagePreview.textContent = lastMessage.text.length > 30 ? lastMessage.text.substring(0, 30) + '...' : lastMessage.text;
-                    lastMessageTime.textContent = lastMessage.time;
-                    readReceipt.style.display = 'inline';
-                } else {
-                    lastMessagePreview.textContent = 'Tap to start chatting';
-                    lastMessageTime.textContent = '';
-                    readReceipt.style.display = 'none';
-                }
-            }
-
-            function loadMessages() {
-                messagesContainer.innerHTML = '';
-                if (messages.length === 0) {
-                    emptyChat.style.display = 'flex';
-                } else {
-                    emptyChat.style.display = 'none';
-                    messages.forEach(msg => {
-                        addMessageToUI(msg.text, msg.isSent, msg.time, msg.read);
-                    });
-                }
-            }
-
-            function addMessageToUI(text, isSent, time, read = false) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
-                
-                const readIcon = isSent && read ? '<i class="fas fa-check-double" style="color: #53bdeb;"></i>' : '';
-                
-                messageDiv.innerHTML = `
-                    ${text}
-                    <div class="message-time">${time} ${readIcon}</div>
+            for (let i = 0; i < skeletonCount; i++) {
+                const skeletonCard = document.createElement('div');
+                skeletonCard.className = 'skeleton-card';
+                skeletonCard.innerHTML = `
+                    <div class="skeleton skeleton-icon"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text short"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-button"></div>
                 `;
-                
-                messagesContainer.appendChild(messageDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                apksGrid.appendChild(skeletonCard);
             }
+        }
 
-            function filterText(text) {
-                const unwantedChars = /[.,\-`'";:/()\[\]{}_+]/g;
-                return text.replace(unwantedChars, '');
-            }
+        async function fetchApks() {
+            try {
+                const response = await fetch('https://apks.urmaxx.in/getlist');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
 
-            function addMessage(text, isSent = true) {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                const message = {
-                    text: text,
-                    isSent: isSent,
-                    time: timeString,
-                    read: false
-                };
-                
-                messages.push(message);
-                localStorage.setItem('chatMessages', JSON.stringify(messages));
-                
-                loadMessages();
-                updateChatPreview();
-                
-                if (isSent) {
-                    setTimeout(() => {
-                        message.read = true;
-                        localStorage.setItem('chatMessages', JSON.stringify(messages));
-                        updateChatPreview();
-                        loadMessages();
-                    }, 1000);
+                if (Array.isArray(data)) {
+                    apksData = data;
+                    filteredApks = data;
+                    renderApks();
+                } else {
+                    throw new Error('Invalid data format');
                 }
-            }
-
-            function showTypingIndicator() {
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                }
-                
-                typingIndicator = document.createElement('div');
-                typingIndicator.className = 'typing-indicator';
-                typingIndicator.innerHTML = `
-                    <div class="typing-dots">
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
+            } catch (error) {
+                console.error('Error fetching APKs:', error);
+                apksGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Failed to load APKs</h3>
+                        <p style="color: var(--text-secondary);">Please check your internet connection and try again.</p>
                     </div>
                 `;
-                
-                messagesContainer.appendChild(typingIndicator);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+
+        function renderApks() {
+            apksGrid.innerHTML = '';
+
+            if (filteredApks.length === 0) {
+                apksGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">No APKs Found</h3>
+                        <p style="color: var(--text-secondary);">Try adjusting your search terms.</p>
+                    </div>
+                `;
+                return;
             }
 
-            function hideTypingIndicator() {
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                    typingIndicator = null;
-                }
-            }
+            filteredApks.forEach((apk, index) => {
+                const apkCard = document.createElement('div');
+                apkCard.className = 'apk-card';
+                apkCard.style.animationDelay = (index * 0.1) + 's';
+                apkCard.onclick = () => openApkDetails(apk);
 
-            function updateSendButtonState() {
-                if (isWaitingForReply) {
-                    sendButton.classList.add('disabled');
-                    messageInput.placeholder = "Waiting for reply...";
-                } else {
-                    sendButton.classList.remove('disabled');
-                    messageInput.placeholder = "Type a message";
-                }
-            }
+                apkCard.innerHTML = `
+                    <div class="apk-image-container">
+                        <img 
+                            src="https://apks.urmaxx.in${apk.thumbnail}" 
+                            alt="${apk.name}" 
+                            class="apk-icon" 
+                            loading="lazy"
+                            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMUEyQTMzIi8+CjxwYXRoIGQ9Ik0xMDAgNTBDODkuNTIxOSA1MCA4MSA1OC41MjE5IDgxIDY5QzgxIDc5LjQ3ODEgODkuNTIxOSA4OCAxMDAgODhDMTEwLjQ3OCA4OCAxMTkgNzkuNDc4MSAxMTkgNjlDMTE5IDU4LjUyMTkgMTEwLjQ3OCA1MCAxMDAgNTBaTTEwMCAxMjVDODUuNjQwNiAxMjUgNzQgMTM2LjY0MSA3NCAxNTFDNzQgMTY1LjM1OSA4NS42NDA2IDE3NyAxMDAgMTc3QzExNC4zNTkgMTc3IDEyNiAxNjUuMzU5IDEyNiAxNTFDMTI2IDEzNi42NDEgMTE0LjM1OSAxMjUgMTAwIDEyNVoiIGZpbGw9IiM0NDQ0NDQiLz4KPC9zdmc+'"
+                        >
+                    </div>
+                    <div class="apk-info-container">
+                        <h3 class="apk-name">${apk.name}</h3>
+                        <p class="apk-description">${apk.description || 'Premium features unlocked with enhanced functionality.'}</p>
+                        <div class="apk-stats">
+                            <span class="stat-item"><i class="fas fa-download"></i> ${apk.downloadCount || '1K+'}</span>
+                            <span class="stat-item"><i class="fas fa-weight-hanging"></i> ${apk.size || '15MB'}</span>
+                        </div>
+                        <div class="apk-action">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                `;
 
-            async function sendMessage() {
-                const message = messageInput.value.trim();
-                if (message === '') return;
+                apksGrid.appendChild(apkCard);
+            });
+        }
 
-                if (isWaitingForReply) {
-                    messageQueue.push(message);
-                    messageInput.value = '';
-                    return;
-                }
+        function openApkDetails(apk) {
+            currentApkData = apk;
 
-                isWaitingForReply = true;
-                updateSendButtonState();
-                
-                addMessage(message, true);
-                messageInput.value = '';
-                
-                showTypingIndicator();
-                
-                try {
-                    const response = await fetch(`https://urfaris.onrender.com/ai/gf2?msg=${encodeURIComponent(message)}&user=${userId}`);
-                    const data = await response.json();
-                    
-                    hideTypingIndicator();
-                    
-                    if (data.reply) {
-                        const filteredReply = filterText(data.reply);
-                        addMessage(filteredReply, false);
+            detailsImage.src = `https://apks.urmaxx.in${apk.thumbnail}`;
+            detailsImage.alt = apk.name;
+            detailsTitle.textContent = apk.name;
+            detailsDescription.textContent = apk.description || 'Premium features unlocked with enhanced functionality and ad-free experience.';
+            detailsDownloads.textContent = apk.downloadCount || '1K+';
+            detailsSize.textContent = apk.size || '15MB';
+            detailsVersion.textContent = apk.version || 'v2.5.1';
+            detailsRating.textContent = apk.rating || '4.8★';
+
+            apkDetailsModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApkDetailsModal() {
+            apkDetailsModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function setupEventListeners() {
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    const searchTerm = this.value.toLowerCase().trim();
+
+                    if (searchTerm === '') {
+                        filteredApks = apksData;
                     } else {
-                        addMessage("Sorry, I couldn't process your message.", false);
+                        filteredApks = apksData.filter(apk => 
+                            apk.name.toLowerCase().includes(searchTerm) ||
+                            (apk.description && apk.description.toLowerCase().includes(searchTerm))
+                        );
                     }
-                    
-                    isWaitingForReply = false;
-                    updateSendButtonState();
-                    
-                    if (messageQueue.length > 0) {
-                        const nextMessage = messageQueue.shift();
-                        messageInput.value = nextMessage;
-                        sendMessage();
-                    }
-                    
-                } catch (error) {
-                    hideTypingIndicator();
-                    
-                    addMessage("I'm having trouble connecting right now. Please try again later.", false);
-                    
-                    isWaitingForReply = false;
-                    updateSendButtonState();
-                    
-                    if (messageQueue.length > 0) {
-                        const nextMessage = messageQueue.shift();
-                        messageInput.value = nextMessage;
-                        sendMessage();
-                    }
-                }
-            }
 
-            sendButton.addEventListener('click', sendMessage);
-            
-            messageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
+                    renderApks();
+                }, 300);
+            });
+
+            closeDetailsModal.addEventListener('click', closeApkDetailsModal);
+
+            apkDetailsModal.addEventListener('click', function(e) {
+                if (e.target === apkDetailsModal) {
+                    closeApkDetailsModal();
                 }
             });
 
-            gfChat.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.add('hidden');
-                    chatArea.classList.add('active');
-                }
-                loadMessages();
-                messageInput.focus();
-            });
-
-            backButton.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('hidden');
-                    chatArea.classList.remove('active');
-                }
-            });
-
-            if (window.innerWidth <= 768) {
-                if (messages.length === 0) {
-                    sidebar.classList.remove('hidden');
-                    chatArea.classList.remove('active');
+            detailsDownloadBtn.addEventListener('click', function() {
+                if (currentApkData && currentApkData.downloadLink) {
+                    openDownloadModal(currentApkData.downloadLink);
+                    closeApkDetailsModal();
                 } else {
-                    sidebar.classList.add('hidden');
-                    chatArea.classList.add('active');
-                    loadMessages();
+                    alert('Download link not available. Please try again.');
                 }
-            } else {
-                chatArea.classList.add('active');
-                loadMessages();
-            }
+            });
 
-            updateChatPreview();
-            updateSendButtonState();
-            messageInput.focus();
-        });
+            closeModal.addEventListener('click', closeDownloadModal);
+
+            downloadModal.addEventListener('click', function(e) {
+                if (e.target === downloadModal) {
+                    closeDownloadModal();
+                }
+            });
+
+            youtubeLink.addEventListener('click', function() {
+                clickedLinks.youtube = true;
+                this.classList.add('clicked');
+                checkAllLinksClicked();
+            });
+            
+            telegramLink1.addEventListener('click', function() {
+                clickedLinks.telegram1 = true;
+                this.classList.add('clicked');
+                checkAllLinksClicked();
+            });
+
+            telegramLink2.addEventListener('click', function() {
+                clickedLinks.telegram2 = true;
+                this.classList.add('clicked');
+                checkAllLinksClicked();
+            });
+
+            instagramLink.addEventListener('click', function() {
+                clickedLinks.instagram = true;
+                this.classList.add('clicked');
+                checkAllLinksClicked();
+            });
+
+            proceedDownload.addEventListener('click', function() {
+                if (currentDownloadUrl && !this.disabled) {
+                    window.location.href = currentDownloadUrl;
+                    closeDownloadModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeDownloadModal();
+                    closeApkDetailsModal();
+                }
+            });
+        }
+
+        function openDownloadModal(downloadUrl) {
+            currentDownloadUrl = downloadUrl;
+            downloadModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            clickedLinks = { telegram1: false, youtube: false, telegram2: false, instagram: false };
+            telegramLink1.classList.remove('clicked');
+            youtubeLink.classList.remove('clicked');
+            telegramLink2.classList.remove('clicked');
+            instagramLink.classList.remove('clicked');
+            proceedDownload.disabled = true;
+        }
+
+        function closeDownloadModal() {
+            downloadModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentDownloadUrl = '';
+            currentApkData = null;
+        }
+
+        function checkAllLinksClicked() {
+            const allClicked = Object.values(clickedLinks).every(clicked => clicked);
+            proceedDownload.disabled = !allClicked;
+        }
     </script>
 </body>
 </html>
