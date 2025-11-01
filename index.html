@@ -152,9 +152,10 @@
             }
         }
 
+        /* Mobile First Styles */
         .header {
             text-align: center;
-            padding: 4rem 1rem 3rem;
+            padding: 2rem 1rem;
             position: relative;
             overflow: hidden;
         }
@@ -174,60 +175,40 @@
             z-index: -1;
         }
 
-        .header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.1), 
-                transparent);
-            animation: shimmer 6s infinite;
-            z-index: -1;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
         .logo {
             font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(3rem, 10vw, 5rem);
+            font-size: 2.2rem;
             font-weight: 800;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(123, 97, 255, 0.5);
+            text-shadow: 0 0 20px rgba(123, 97, 255, 0.5);
             letter-spacing: -1px;
         }
 
         .subtitle {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-size: 1rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
             font-weight: 300;
         }
 
         .search-container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            padding: 1.2rem 2rem;
+            padding: 0.8rem 1.5rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
+            border-radius: 25px;
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 0.9rem;
             outline: none;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
@@ -235,20 +216,20 @@
 
         .search-input:focus {
             border-color: var(--accent-primary);
-            box-shadow: 0 0 30px rgba(123, 97, 255, 0.3);
+            box-shadow: 0 0 20px rgba(123, 97, 255, 0.3);
             background: rgba(255, 255, 255, 0.08);
         }
 
         .container {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
@@ -258,16 +239,16 @@
 
         .apks-grid {
             display: grid;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .apk-card {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
@@ -286,14 +267,14 @@
             height: 100%;
             background: var(--gradient-primary);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
             z-index: -1;
         }
 
         .apk-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 40px rgba(123, 97, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.2);
         }
 
         .apk-card:hover::before {
@@ -312,25 +293,25 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease;
         }
 
         .apk-card:hover .apk-icon {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .apk-info-container {
-            padding: 1.5rem;
+            padding: 0.8rem;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.5rem;
         }
 
         .apk-name {
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--text-primary);
-            line-height: 1.3;
+            line-height: 1.2;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -340,8 +321,8 @@
 
         .apk-description {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.75rem;
+            line-height: 1.3;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -351,28 +332,29 @@
         .apk-stats {
             display: flex;
             justify-content: space-between;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.2rem;
         }
 
         .apk-action {
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
         }
 
         .view-details-btn {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.5rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 8px;
             color: var(--text-primary);
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -380,13 +362,82 @@
         .view-details-btn:hover {
             background: var(--accent-primary);
             border-color: var(--accent-primary);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
+        /* Desktop Styles */
         @media (min-width: 768px) {
+            .header {
+                padding: 2.5rem 1rem;
+            }
+
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .search-input {
+                padding: 1rem 1.8rem;
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
             .apks-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2.5rem;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.2rem;
+            }
+
+            .apk-card {
+                border-radius: 14px;
+            }
+
+            .apk-info-container {
+                padding: 1rem;
+                gap: 0.6rem;
+            }
+
+            .apk-name {
+                font-size: 0.9rem;
+            }
+
+            .apk-description {
+                font-size: 0.8rem;
+            }
+
+            .apk-stats {
+                font-size: 0.75rem;
+            }
+
+            .view-details-btn {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Large Desktop Styles */
+        @media (min-width: 1200px) {
+            .apks-grid {
+                gap: 1.5rem;
+            }
+            
+            .apk-card {
+                border-radius: 16px;
+            }
+            
+            .apk-info-container {
+                padding: 1.2rem;
             }
         }
 
@@ -409,35 +460,35 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(26, 26, 26, 0.95);
-            border-radius: 24px;
-            padding: 2.5rem;
-            max-width: 600px;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
             border: 1px solid rgba(123, 97, 255, 0.3);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(20px);
         }
 
         .apk-details-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .apk-details-image {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 20px;
-            margin: 0 auto 1.5rem;
+            border-radius: 16px;
+            margin: 0 auto 1rem;
             display: block;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border: 2px solid rgba(123, 97, 255, 0.3);
         }
 
         .apk-details-title {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
@@ -445,23 +496,23 @@
 
         .apk-details-description {
             color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
         .apk-details-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
         }
 
         .apk-stat-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1.2rem;
-            border-radius: 16px;
+            padding: 1rem;
+            border-radius: 12px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -469,53 +520,53 @@
 
         .apk-stat-item:hover {
             border-color: var(--accent-primary);
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
         .apk-stat-label {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
         }
 
         .apk-stat-value {
             color: var(--accent-secondary);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .apk-download-btn {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1rem;
             background: var(--gradient-primary);
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             color: white;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.3);
+            box-shadow: 0 8px 16px rgba(123, 97, 255, 0.3);
         }
 
         .apk-download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(123, 97, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(123, 97, 255, 0.4);
         }
 
         .close-details-btn {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 1rem;
+            right: 1rem;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -548,12 +599,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(26, 26, 26, 0.95);
-            border-radius: 24px;
-            padding: 2.5rem;
-            max-width: 500px;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 450px;
             width: 90%;
             border: 1px solid rgba(123, 97, 255, 0.3);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(20px);
         }
 
@@ -564,15 +615,15 @@
 
         .close-btn {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 1rem;
+            right: 1rem;
             background: rgba(255, 255, 255, 0.1);
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -588,11 +639,11 @@
 
         .modal-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .modal-title {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
@@ -600,20 +651,20 @@
 
         .modal-subtitle {
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .social-links {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .social-link {
             display: block;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
+            padding: 0.9rem;
+            margin-bottom: 0.8rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            border-radius: 12px;
             color: var(--text-primary);
             text-decoration: none;
             transition: all 0.3s ease;
@@ -621,13 +672,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
+            font-size: 0.9rem;
         }
 
         .social-link:hover {
             border-color: var(--accent-primary);
             background: rgba(123, 97, 255, 0.1);
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
 
         .social-link.clicked {
@@ -638,17 +690,18 @@
 
         .proceed-btn {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1rem;
             background: var(--gradient-primary);
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             color: white;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.3);
+            box-shadow: 0 8px 16px rgba(123, 97, 255, 0.3);
+            font-size: 0.9rem;
         }
 
         .proceed-btn:disabled {
@@ -659,13 +712,13 @@
         }
 
         .proceed-btn:not(:disabled):hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(123, 97, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(123, 97, 255, 0.4);
         }
 
         .footer {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 2rem 1rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
@@ -674,14 +727,14 @@
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .social-icon {
             display: inline-block;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: var(--gradient-primary);
             border-radius: 50%;
             text-decoration: none;
@@ -690,19 +743,19 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(123, 97, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(123, 97, 255, 0.3);
         }
 
         .social-icon:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(123, 97, 255, 0.5);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(123, 97, 255, 0.5);
         }
 
         .copyright {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .skeleton {
@@ -712,7 +765,7 @@
                 rgba(255, 255, 255, 0.1) 75%);
             background-size: 200% 100%;
             animation: loading 2s infinite;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         @keyframes loading {
@@ -727,8 +780,8 @@
         .skeleton-card {
             aspect-ratio: 1;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 12px;
+            padding: 0.8rem;
             border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
@@ -738,25 +791,44 @@
         .skeleton-icon {
             width: 100%;
             aspect-ratio: 1;
-            border-radius: 16px;
-            margin-bottom: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
         }
 
         .skeleton-text {
-            height: 16px;
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
+            height: 12px;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
         }
 
         .skeleton-text.short {
             width: 60%;
-            margin: 0 auto 0.8rem;
+            margin: 0 auto 0.5rem;
         }
 
         .skeleton-button {
-            height: 45px;
-            border-radius: 12px;
-            margin-top: 1rem;
+            height: 35px;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .skeleton-card {
+                padding: 1rem;
+                border-radius: 14px;
+            }
+            
+            .skeleton-icon {
+                border-radius: 12px;
+            }
+            
+            .skeleton-text {
+                height: 14px;
+            }
+            
+            .skeleton-button {
+                height: 40px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -852,7 +924,7 @@
                     <i class="fab fa-instagram"></i> Follow on Instagram
                 </a>
             </div>
-            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
                 After following all channels, the download will be unlocked.
             </p>
             <button class="proceed-btn" id="proceedDownload" disabled>
@@ -917,7 +989,7 @@
 
         function showSkeletonLoading() {
             apksGrid.innerHTML = '';
-            const skeletonCount = window.innerWidth < 640 ? 6 : 12;
+            const skeletonCount = window.innerWidth < 768 ? 4 : 12;
 
             for (let i = 0; i < skeletonCount; i++) {
                 const skeletonCard = document.createElement('div');
@@ -949,9 +1021,9 @@
             } catch (error) {
                 console.error('Error fetching APKs:', error);
                 apksGrid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                        <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Failed to load APKs</h3>
-                        <p style="color: var(--text-secondary);">Please check your internet connection and try again.</p>
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <h3 style="color: var(--accent-primary); margin-bottom: 1rem; font-size: 1.2rem;">Failed to load APKs</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Please check your internet connection and try again.</p>
                     </div>
                 `;
             }
@@ -962,9 +1034,9 @@
 
             if (filteredApks.length === 0) {
                 apksGrid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                        <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">No APKs Found</h3>
-                        <p style="color: var(--text-secondary);">Try adjusting your search terms.</p>
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <h3 style="color: var(--accent-primary); margin-bottom: 1rem; font-size: 1.2rem;">No APKs Found</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Try adjusting your search terms.</p>
                     </div>
                 `;
                 return;
