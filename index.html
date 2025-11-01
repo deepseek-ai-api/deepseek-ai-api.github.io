@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arohi Gf</title>
+    <title>WhatsApp Clone</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -16,21 +16,15 @@
         body {
             background-color: #111b21;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             color: #e9edef;
+            overflow: hidden;
         }
 
         .app-container {
-            width: 90%;
-            max-width: 1600px;
-            height: 95vh;
+            width: 100%;
+            height: 100vh;
             background-color: #222e35;
             display: flex;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .sidebar {
@@ -110,6 +104,7 @@
             outline: none;
             color: #e9edef;
             width: 100%;
+            font-size: 14px;
         }
 
         .chat-list {
@@ -162,6 +157,7 @@
 
         .chat-name {
             font-weight: 500;
+            font-size: 16px;
         }
 
         .chat-time {
@@ -206,6 +202,7 @@
         .chat-header-name {
             font-weight: 500;
             margin-left: 15px;
+            font-size: 16px;
         }
 
         .chat-header-icons {
@@ -228,12 +225,13 @@
         }
 
         .message {
-            max-width: 65%;
+            max-width: 85%;
             padding: 8px 12px;
             margin-bottom: 10px;
             border-radius: 8px;
             position: relative;
             word-wrap: break-word;
+            font-size: 14px;
         }
 
         .received {
@@ -268,7 +266,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
-            max-width: 65%;
+            max-width: 85%;
         }
 
         .typing-dots {
@@ -381,34 +379,58 @@
             max-width: 400px;
         }
 
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 40%;
-            }
+        .back-button {
+            display: none;
+            background: none;
+            border: none;
+            color: #aebac1;
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
         }
 
-        @media (max-width: 700px) {
-            .app-container {
-                width: 100%;
-                height: 100vh;
-                border-radius: 0;
-            }
-            
+        @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
+                display: none;
             }
             
             .chat-area {
                 width: 100%;
-                display: none;
+            }
+            
+            .back-button {
+                display: block;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .sidebar.active {
+                display: flex;
             }
             
             .chat-area.active {
                 display: flex;
             }
+        }
+
+        @media (min-width: 769px) {
+            .app-container {
+                width: 90%;
+                max-width: 1600px;
+                height: 95vh;
+                margin: auto;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
             
-            .sidebar.hidden {
-                display: none;
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
     </style>
@@ -454,8 +476,11 @@
             </div>
         </div>
 
-        <div class="chat-area" id="chatArea">
+        <div class="chat-area active" id="chatArea">
             <div class="chat-header">
+                <button class="back-button" id="backButton">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <div class="chat-header-info">
                     <div class="avatar" id="chatHeaderAvatar">
                         <img src="https://i.ibb.co/fY4x5bNZ/image.png" alt="Aarohi">
@@ -506,10 +531,15 @@
             const readReceipt = document.getElementById('readReceipt');
             const profileAvatar = document.getElementById('profileAvatar');
             const chatHeaderAvatar = document.getElementById('chatHeaderAvatar');
+            const backButton = document.getElementById('backButton');
 
             let clickCount = 0;
             let lastClickTime = 0;
             const resetClickTimeout = 1000;
+            let lastMessageTimeStamp = 0;
+            let spamCount = 0;
+            let isBlocked = false;
+            let blockUntil = 0;
 
             function generateUserId() {
                 const min = 1000000;
@@ -591,6 +621,11 @@
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
 
+            function filterText(text) {
+                const unwantedChars = /[.,\-`'";:/()\[\]{}_+]/g;
+                return text.replace(unwantedChars, '');
+            }
+
             function addMessage(text, isSent = true) {
                 const now = new Date();
                 const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -619,8 +654,43 @@
             }
 
             async function sendMessage() {
+                if (isBlocked) {
+                    const now = Date.now();
+                    if (now < blockUntil) {
+                        const remaining = Math.ceil((blockUntil - now) / 1000 / 60);
+                        addMessage(`You are blocked for ${remaining} more minutes. Please wait.`, false);
+                        return;
+                    } else {
+                        isBlocked = false;
+                        spamCount = 0;
+                    }
+                }
+
                 const message = messageInput.value.trim();
                 if (message === '') return;
+
+                const currentTime = Date.now();
+                if (currentTime - lastMessageTimeStamp < 5000) {
+                    spamCount++;
+                    
+                    if (spamCount >= 3) {
+                        addMessage("3 time esa mat karo meri jaan", false);
+                        isBlocked = true;
+                        blockUntil = currentTime + (60 * 60 * 1000);
+                        messageInput.disabled = true;
+                        setTimeout(() => {
+                            messageInput.disabled = false;
+                            isBlocked = false;
+                            spamCount = 0;
+                        }, 60 * 60 * 1000);
+                        return;
+                    }
+                    
+                    addMessage("Please wait before sending another message", false);
+                    return;
+                }
+
+                lastMessageTimeStamp = currentTime;
                 
                 addMessage(message, true);
                 messageInput.value = '';
@@ -631,7 +701,8 @@
                     
                     setTimeout(() => {
                         if (data.reply) {
-                            addMessage(data.reply, false);
+                            const filteredReply = filterText(data.reply);
+                            addMessage(filteredReply, false);
                         } else {
                             addMessage("Sorry, I couldn't process your message.", false);
                         }
@@ -653,16 +724,30 @@
             });
 
             gfChat.addEventListener('click', function() {
-                if (window.innerWidth <= 700) {
-                    sidebar.classList.add('hidden');
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
                     chatArea.classList.add('active');
                 }
                 loadMessages();
                 messageInput.focus();
             });
 
-            if (window.innerWidth <= 700) {
-                chatArea.classList.remove('active');
+            backButton.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('active');
+                    chatArea.classList.remove('active');
+                }
+            });
+
+            if (window.innerWidth <= 768) {
+                if (messages.length === 0) {
+                    sidebar.classList.add('active');
+                    chatArea.classList.remove('active');
+                } else {
+                    sidebar.classList.remove('active');
+                    chatArea.classList.add('active');
+                    loadMessages();
+                }
             } else {
                 chatArea.classList.add('active');
                 loadMessages();
