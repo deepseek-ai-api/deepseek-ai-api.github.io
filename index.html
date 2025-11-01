@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Clone</title>
+    <title>Aarohi 🌼🦋</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -396,6 +396,12 @@
             font-size: 18px;
         }
 
+        .send-button.disabled {
+            background-color: #2a3942;
+            color: #8696a0;
+            cursor: not-allowed;
+        }
+
         .empty-chat {
             flex: 1;
             display: flex;
@@ -599,10 +605,11 @@
             let clickCount = 0;
             let lastClickTime = 0;
             const resetClickTimeout = 1000;
-            let lastMessageTimeStamp = 0;
-            let spamCount = 0;
-            let isBlocked = false;
-            let blockUntil = 0;
+            
+            // New variables for message queue and typing indicator
+            let isWaitingForReply = false;
+            let messageQueue = [];
+            let typingIndicator = null;
 
             function generateUserId() {
                 const min = 1000000;
@@ -637,7 +644,6 @@
                     loadMessages();
                     updateChatPreview();
                     clickCount = 0;
-                    alert('Chat history has been reset!');
                 }
             }
 
@@ -716,51 +722,69 @@
                 }
             }
 
-            async function sendMessage() {
-                if (isBlocked) {
-                    const now = Date.now();
-                    if (now < blockUntil) {
-                        const remaining = Math.ceil((blockUntil - now) / 1000 / 60);
-                        addMessage(`You are blocked for ${remaining} more minutes. Please wait.`, false);
-                        return;
-                    } else {
-                        isBlocked = false;
-                        spamCount = 0;
-                    }
+            function showTypingIndicator() {
+                if (typingIndicator) {
+                    typingIndicator.remove();
                 }
+                
+                typingIndicator = document.createElement('div');
+                typingIndicator.className = 'typing-indicator';
+                typingIndicator.innerHTML = `
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                `;
+                
+                messagesContainer.appendChild(typingIndicator);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
 
+            function hideTypingIndicator() {
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                    typingIndicator = null;
+                }
+            }
+
+            function updateSendButtonState() {
+                if (isWaitingForReply) {
+                    sendButton.classList.add('disabled');
+                    messageInput.placeholder = "Waiting for reply...";
+                } else {
+                    sendButton.classList.remove('disabled');
+                    messageInput.placeholder = "Type a message";
+                }
+            }
+
+            async function sendMessage() {
                 const message = messageInput.value.trim();
                 if (message === '') return;
 
-                const currentTime = Date.now();
-                if (currentTime - lastMessageTimeStamp < 5000) {
-                    spamCount++;
-                    
-                    if (spamCount >= 3) {
-                        addMessage("3 time esa mat karo meri jaan", false);
-                        isBlocked = true;
-                        blockUntil = currentTime + (60 * 60 * 1000);
-                        messageInput.disabled = true;
-                        setTimeout(() => {
-                            messageInput.disabled = false;
-                            isBlocked = false;
-                            spamCount = 0;
-                        }, 60 * 60 * 1000);
-                        return;
-                    }
-                    
-                    addMessage("Please wait before sending another message", false);
+                // If we're waiting for a reply, add message to queue
+                if (isWaitingForReply) {
+                    messageQueue.push(message);
+                    messageInput.value = '';
                     return;
                 }
 
-                lastMessageTimeStamp = currentTime;
+                // Otherwise, send the message immediately
+                isWaitingForReply = true;
+                updateSendButtonState();
                 
                 addMessage(message, true);
                 messageInput.value = '';
                 
+                // Show typing indicator
+                showTypingIndicator();
+                
                 try {
                     const response = await fetch(`https://urfaris.onrender.com/ai/gf2?msg=${encodeURIComponent(message)}&user=${userId}`);
                     const data = await response.json();
+                    
+                    // Hide typing indicator
+                    hideTypingIndicator();
                     
                     setTimeout(() => {
                         if (data.reply) {
@@ -769,11 +793,36 @@
                         } else {
                             addMessage("Sorry, I couldn't process your message.", false);
                         }
+                        
+                        // Mark that we're no longer waiting for a reply
+                        isWaitingForReply = false;
+                        updateSendButtonState();
+                        
+                        // Process any queued messages
+                        if (messageQueue.length > 0) {
+                            const nextMessage = messageQueue.shift();
+                            messageInput.value = nextMessage;
+                            sendMessage();
+                        }
                     }, 1500);
                     
                 } catch (error) {
+                    // Hide typing indicator
+                    hideTypingIndicator();
+                    
                     setTimeout(() => {
                         addMessage("I'm having trouble connecting right now. Please try again later.", false);
+                        
+                        // Mark that we're no longer waiting for a reply
+                        isWaitingForReply = false;
+                        updateSendButtonState();
+                        
+                        // Process any queued messages
+                        if (messageQueue.length > 0) {
+                            const nextMessage = messageQueue.shift();
+                            messageInput.value = nextMessage;
+                            sendMessage();
+                        }
                     }, 1500);
                 }
             }
@@ -818,6 +867,7 @@
             }
 
             updateChatPreview();
+            updateSendButtonState();
             messageInput.focus();
         });
     </script>
