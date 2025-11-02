@@ -986,8 +986,17 @@
 
         function showSkeletonLoading() {
             apksGrid.innerHTML = '';
-            const skeletonCount = window.innerWidth < 768 ? 4 : 12;
-
+            
+            // Get the current grid template columns value
+            const gridStyle = window.getComputedStyle(apksGrid);
+            const gridTemplateColumns = gridStyle.getPropertyValue('grid-template-columns');
+            
+            // Calculate the number of columns based on the grid template
+            const columnsCount = gridTemplateColumns.split(' ').length;
+            
+            // Create skeleton cards that match the grid layout
+            const skeletonCount = columnsCount * 3; // 3 rows of skeleton cards
+            
             for (let i = 0; i < skeletonCount; i++) {
                 const skeletonCard = document.createElement('div');
                 skeletonCard.className = 'skeleton-card';
