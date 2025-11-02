@@ -46,7 +46,6 @@
             position: relative;
         }
 
-        /* Particle Canvas */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -118,7 +117,6 @@
             }
         }
 
-        /* Header Styles */
         .header {
             text-align: center;
             padding: 2rem 1rem;
@@ -203,7 +201,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* APK Grid Styles */
         .apks-grid {
             display: grid;
             gap: 1rem;
@@ -332,7 +329,6 @@
             transform: translateY(-1px);
         }
 
-        /* Glassy Modal Styles */
         .apk-details-modal {
             display: none;
             position: fixed;
@@ -343,7 +339,7 @@
             background: rgba(0, 0, 0, 0.7);
             z-index: 2000;
             animation: fadeIn 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
         }
 
         .apk-details-content {
@@ -351,7 +347,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.85);
+            background: rgba(26, 26, 26, 0);
             border-radius: 20px;
             padding: 2rem;
             max-width: 500px;
@@ -360,7 +356,7 @@
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
         }
 
         .apk-details-header {
@@ -408,6 +404,7 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .apk-stat-item:hover {
@@ -441,6 +438,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: 0 8px 16px rgba(123, 97, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .apk-download-btn:hover {
@@ -464,6 +462,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .close-details-btn:hover {
@@ -482,7 +481,7 @@
             background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             animation: fadeIn 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
         }
 
         .modal-content {
@@ -490,14 +489,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.85);
+            background: rgba(26, 26, 26, 0);
             border-radius: 20px;
             padding: 2rem;
             max-width: 450px;
             width: 90%;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
         }
 
         @keyframes fadeIn {
@@ -521,6 +520,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .close-btn:hover {
@@ -566,6 +566,7 @@
             justify-content: center;
             gap: 0.6rem;
             font-size: 0.9rem;
+            backdrop-filter: blur(10px);
         }
 
         .social-link:hover {
@@ -594,6 +595,7 @@
             letter-spacing: 1px;
             box-shadow: 0 8px 16px rgba(123, 97, 255, 0.3);
             font-size: 0.9rem;
+            backdrop-filter: blur(10px);
         }
 
         .proceed-btn:disabled {
@@ -608,7 +610,6 @@
             box-shadow: 0 12px 24px rgba(123, 97, 255, 0.4);
         }
 
-        /* Footer Styles */
         .footer {
             text-align: center;
             padding: 2rem 1rem;
@@ -651,7 +652,6 @@
             font-size: 0.85rem;
         }
 
-        /* Skeleton Loading Styles */
         .skeleton {
             background: linear-gradient(90deg, 
                 rgba(255, 255, 255, 0.1) 25%, 
@@ -706,7 +706,6 @@
             margin-top: 0.8rem;
         }
 
-        /* Responsive Styles */
         @media (min-width: 768px) {
             .header {
                 padding: 2.5rem 1rem;
@@ -808,7 +807,6 @@
     </style>
 </head>
 <body>
-    <!-- Particle Canvas -->
     <canvas id="particle-canvas"></canvas>
     
     <div class="background-animation" id="backgroundAnimation">
@@ -841,7 +839,6 @@
       </p>
     </footer>
 
-    <!-- Glassy APK Details Modal -->
     <div class="apk-details-modal" id="apkDetailsModal">
         <div class="apk-details-content">
             <button class="close-details-btn" id="closeDetailsModal">&times;</button>
@@ -874,7 +871,6 @@
         </div>
     </div>
 
-    <!-- Glassy Download Modal -->
     <div class="modal" id="downloadModal">
         <div class="modal-content">
             <button class="close-btn" id="closeModal">&times;</button>
@@ -906,16 +902,15 @@
     </div>
 
     <script>
-        // Particle System with Mobile Optimization
         class ParticleSystem {
             constructor() {
                 this.canvas = document.getElementById('particle-canvas');
                 this.ctx = this.canvas.getContext('2d');
                 this.particles = [];
-                this.maxParticles = window.innerWidth < 768 ? 50 : 80; // Reduced particles on mobile
+                this.maxParticles = window.innerWidth < 768 ? 25 : 50;
                 this.particleCount = 0;
                 this.lastFrameTime = 0;
-                this.frameInterval = 1000 / 30; // Target 30 FPS for better performance
+                this.frameInterval = 1000 / 30;
                 
                 this.init();
                 this.animate();
@@ -925,7 +920,6 @@
             init() {
                 this.resizeCanvas();
                 
-                // Create initial particles
                 for (let i = 0; i < this.maxParticles; i++) {
                     this.createParticle();
                 }
@@ -933,13 +927,13 @@
             
             createParticle() {
                 const colors = [
-                    'rgba(0, 255, 255, 0.7)', // cyan
-                    'rgba(255, 0, 255, 0.7)', // pink
-                    'rgba(0, 255, 0, 0.7)',   // green
-                    'rgba(139, 92, 246, 0.7)', // purple
-                    'rgba(255, 107, 53, 0.7)', // orange
-                    'rgba(255, 255, 0, 0.7)',  // yellow
-                    'rgba(0, 128, 255, 0.7)'   // blue
+                    'rgba(0, 255, 255, 0.7)',
+                    'rgba(255, 0, 255, 0.7)',
+                    'rgba(0, 255, 0, 0.7)',
+                    'rgba(139, 92, 246, 0.7)',
+                    'rgba(255, 107, 53, 0.7)',
+                    'rgba(255, 255, 0, 0.7)',
+                    'rgba(0, 128, 255, 0.7)'
                 ];
                 
                 const size = Math.random() * 3 + 1;
@@ -961,15 +955,12 @@
                 this.canvas.width = window.innerWidth;
                 this.canvas.height = window.innerHeight;
                 
-                // Adjust particle count on resize (for orientation changes)
                 const isMobile = window.innerWidth < 768;
-                const targetParticles = isMobile ? 50 : 80;
+                const targetParticles = isMobile ? 25 : 50;
                 
                 if (targetParticles < this.particles.length) {
-                    // Remove excess particles
                     this.particles = this.particles.slice(0, targetParticles);
                 } else if (targetParticles > this.particles.length) {
-                    // Add more particles
                     const particlesToAdd = targetParticles - this.particles.length;
                     for (let i = 0; i < particlesToAdd; i++) {
                         this.createParticle();
@@ -990,7 +981,6 @@
             }
             
             animate(currentTime = 0) {
-                // Throttle frame rate for better performance
                 if (currentTime - this.lastFrameTime > this.frameInterval) {
                     this.update();
                     this.draw();
@@ -1004,15 +994,12 @@
                 for (let i = 0; i < this.particles.length; i++) {
                     const p = this.particles[i];
                     
-                    // Update position
                     p.x += p.speedX;
                     p.y += p.speedY;
                     
-                    // Bounce off edges
                     if (p.x <= 0 || p.x >= this.canvas.width) p.speedX *= -1;
                     if (p.y <= 0 || p.y >= this.canvas.height) p.speedY *= -1;
                     
-                    // Pulsing effect
                     p.opacity += p.pulseSpeed * p.pulseDirection;
                     if (p.opacity >= 0.8 || p.opacity <= 0.3) {
                         p.pulseDirection *= -1;
@@ -1020,41 +1007,36 @@
                 }
             }
             
-            draw() {
-                // Clear canvas with a slight fade effect for trailing particles
-                this.ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Draw particles
-                for (let i = 0; i < this.particles.length; i++) {
-                    const p = this.particles[i];
-                    
-                    // Draw glow effect
-                    const gradient = this.ctx.createRadialGradient(
-                        p.x, p.y, 0,
-                        p.x, p.y, p.size * 3
-                    );
-                    gradient.addColorStop(0, p.color.replace('0.7', p.opacity.toString()));
-                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.fill();
-                    
-                    // Draw particle core
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    this.ctx.fillStyle = p.color.replace('0.7', (p.opacity + 0.2).toString());
-                    this.ctx.fill();
-                }
-                
-                // Draw connections between nearby particles
-                this.drawConnections();
-            }
+draw() {
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    for (let i = 0; i < this.particles.length; i++) {
+        const p = this.particles[i];
+        
+        const gradient = this.ctx.createRadialGradient(
+            p.x, p.y, 0,
+            p.x, p.y, p.size * 3
+        );
+        gradient.addColorStop(0, p.color.replace('0.7', p.opacity.toString()));
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+        this.ctx.fillStyle = gradient;
+        this.ctx.fill();
+        
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        this.ctx.fillStyle = p.color.replace('0.7', (p.opacity + 0.2).toString());
+        this.ctx.fill();
+    }
+    
+    this.drawConnections();
+}
             
             drawConnections() {
-                const maxDistance = window.innerWidth < 768 ? 100 : 150; // Shorter connections on mobile
+                const maxDistance = window.innerWidth < 768 ? 80 : 150;
                 
                 for (let i = 0; i < this.particles.length; i++) {
                     for (let j = i + 1; j < this.particles.length; j++) {
@@ -1080,18 +1062,14 @@
             }
         }
 
-        // Initialize particle system when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize particle system
             new ParticleSystem();
             
-            // Your existing code
             showSkeletonLoading();
             fetchApks();
             setupEventListeners();
         });
 
-        // Rest of your existing JavaScript code
         let apksData = [];
         let filteredApks = [];
         let currentDownloadUrl = '';
@@ -1127,15 +1105,12 @@
         function showSkeletonLoading() {
             apksGrid.innerHTML = '';
             
-            // Get the current grid template columns value
             const gridStyle = window.getComputedStyle(apksGrid);
             const gridTemplateColumns = gridStyle.getPropertyValue('grid-template-columns');
             
-            // Calculate the number of columns based on the grid template
             const columnsCount = gridTemplateColumns.split(' ').length;
             
-            // Create skeleton cards that match the grid layout
-            const skeletonCount = columnsCount * 3; // 3 rows of skeleton cards
+            const skeletonCount = columnsCount * 3;
             
             for (let i = 0; i < skeletonCount; i++) {
                 const skeletonCard = document.createElement('div');
