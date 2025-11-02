@@ -46,7 +46,7 @@
             position: relative;
         }
 
-        /* Particle Background Styles */
+        /* Particle Canvas */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -118,7 +118,7 @@
             }
         }
 
-        /* Rest of your existing CSS remains the same */
+        /* Header Styles */
         .header {
             text-align: center;
             padding: 2rem 1rem;
@@ -203,6 +203,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* APK Grid Styles */
         .apks-grid {
             display: grid;
             gap: 1rem;
@@ -331,80 +332,7 @@
             transform: translateY(-1px);
         }
 
-        @media (min-width: 768px) {
-            .header {
-                padding: 2.5rem 1rem;
-            }
-
-            .logo {
-                font-size: 2.8rem;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-                margin-bottom: 2rem;
-            }
-
-            .search-input {
-                padding: 1rem 1.8rem;
-                font-size: 1rem;
-            }
-
-            .container {
-                padding: 2rem 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 2rem;
-            }
-
-            .apks-grid {
-                grid-template-columns: repeat(6, 1fr);
-                gap: 1.2rem;
-            }
-
-            .apk-card {
-                border-radius: 14px;
-            }
-
-            .apk-info-container {
-                padding: 1rem;
-                gap: 0.6rem;
-            }
-
-            .apk-name {
-                font-size: 0.9rem;
-            }
-
-            .apk-description {
-                font-size: 0.8rem;
-            }
-
-            .apk-stats {
-                font-size: 0.75rem;
-            }
-
-            .view-details-btn {
-                padding: 0.6rem;
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .apks-grid {
-                gap: 1.5rem;
-            }
-            
-            .apk-card {
-                border-radius: 16px;
-            }
-            
-            .apk-info-container {
-                padding: 1.2rem;
-            }
-        }
-
+        /* Glassy Modal Styles */
         .apk-details-modal {
             display: none;
             position: fixed;
@@ -412,7 +340,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 2000;
             animation: fadeIn 0.3s ease;
             backdrop-filter: blur(10px);
@@ -423,14 +351,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.95);
+            background: rgba(26, 26, 26, 0.85);
             border-radius: 20px;
             padding: 2rem;
             max-width: 500px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            border: 1px solid rgba(123, 97, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(20px);
         }
@@ -551,7 +479,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             animation: fadeIn 0.3s ease;
             backdrop-filter: blur(10px);
@@ -562,12 +490,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.95);
+            background: rgba(26, 26, 26, 0.85);
             border-radius: 20px;
             padding: 2rem;
             max-width: 450px;
             width: 90%;
-            border: 1px solid rgba(123, 97, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(20px);
         }
@@ -680,6 +608,7 @@
             box-shadow: 0 12px 24px rgba(123, 97, 255, 0.4);
         }
 
+        /* Footer Styles */
         .footer {
             text-align: center;
             padding: 2rem 1rem;
@@ -722,6 +651,7 @@
             font-size: 0.85rem;
         }
 
+        /* Skeleton Loading Styles */
         .skeleton {
             background: linear-gradient(90deg, 
                 rgba(255, 255, 255, 0.1) 25%, 
@@ -776,7 +706,66 @@
             margin-top: 0.8rem;
         }
 
+        /* Responsive Styles */
         @media (min-width: 768px) {
+            .header {
+                padding: 2.5rem 1rem;
+            }
+
+            .logo {
+                font-size: 2.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .search-input {
+                padding: 1rem 1.8rem;
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .apks-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1.2rem;
+            }
+
+            .apk-card {
+                border-radius: 14px;
+            }
+
+            .apk-info-container {
+                padding: 1rem;
+                gap: 0.6rem;
+            }
+
+            .apk-name {
+                font-size: 0.9rem;
+            }
+
+            .apk-description {
+                font-size: 0.8rem;
+            }
+
+            .apk-stats {
+                font-size: 0.75rem;
+            }
+
+            .view-details-btn {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+
             .skeleton-card {
                 padding: 1rem;
                 border-radius: 14px;
@@ -792,6 +781,20 @@
             
             .skeleton-button {
                 height: 40px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .apks-grid {
+                gap: 1.5rem;
+            }
+            
+            .apk-card {
+                border-radius: 16px;
+            }
+            
+            .apk-info-container {
+                padding: 1.2rem;
             }
         }
 
@@ -838,6 +841,7 @@
       </p>
     </footer>
 
+    <!-- Glassy APK Details Modal -->
     <div class="apk-details-modal" id="apkDetailsModal">
         <div class="apk-details-content">
             <button class="close-details-btn" id="closeDetailsModal">&times;</button>
@@ -870,6 +874,7 @@
         </div>
     </div>
 
+    <!-- Glassy Download Modal -->
     <div class="modal" id="downloadModal">
         <div class="modal-content">
             <button class="close-btn" id="closeModal">&times;</button>
@@ -901,13 +906,13 @@
     </div>
 
     <script>
-        // Particle System
+        // Particle System with Mobile Optimization
         class ParticleSystem {
             constructor() {
                 this.canvas = document.getElementById('particle-canvas');
                 this.ctx = this.canvas.getContext('2d');
                 this.particles = [];
-                this.maxParticles = 80; // Reduced for better performance
+                this.maxParticles = window.innerWidth < 768 ? 50 : 80; // Reduced particles on mobile
                 this.particleCount = 0;
                 this.lastFrameTime = 0;
                 this.frameInterval = 1000 / 30; // Target 30 FPS for better performance
@@ -955,6 +960,23 @@
             resizeCanvas() {
                 this.canvas.width = window.innerWidth;
                 this.canvas.height = window.innerHeight;
+                
+                // Adjust particle count on resize (for orientation changes)
+                const isMobile = window.innerWidth < 768;
+                const targetParticles = isMobile ? 50 : 80;
+                
+                if (targetParticles < this.particles.length) {
+                    // Remove excess particles
+                    this.particles = this.particles.slice(0, targetParticles);
+                } else if (targetParticles > this.particles.length) {
+                    // Add more particles
+                    const particlesToAdd = targetParticles - this.particles.length;
+                    for (let i = 0; i < particlesToAdd; i++) {
+                        this.createParticle();
+                    }
+                }
+                
+                this.maxParticles = targetParticles;
             }
             
             setupResize() {
@@ -1032,7 +1054,7 @@
             }
             
             drawConnections() {
-                const maxDistance = 150;
+                const maxDistance = window.innerWidth < 768 ? 100 : 150; // Shorter connections on mobile
                 
                 for (let i = 0; i < this.particles.length; i++) {
                     for (let j = i + 1; j < this.particles.length; j++) {
@@ -1069,7 +1091,7 @@
             setupEventListeners();
         });
 
-        // Rest of your existing JavaScript code remains the same
+        // Rest of your existing JavaScript code
         let apksData = [];
         let filteredApks = [];
         let currentDownloadUrl = '';
