@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maxx Apks Hub - Download Modded & Original APKs Free</title>
   <meta name="description" content="Download Latest Modded APks By Maxx.">
@@ -334,165 +334,26 @@
             margin-top: 0.3rem;
         }
 
-        .view-details-btn {
+        .download-btn {
             width: 100%;
             padding: 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-weight: 500;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .view-details-btn:hover {
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
-            transform: translateY(-1px);
-        }
-
-        .apk-details-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-            backdrop-filter: blur(20px);
-        }
-
-        .apk-details-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(25px);
-        }
-
-        .apk-details-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .apk-details-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin: 0 auto 1rem;
-            display: block;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(123, 97, 255, 0.3);
-        }
-
-        .apk-details-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .apk-details-description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .apk-details-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .apk-stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .apk-stat-item:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-3px);
-        }
-
-        .apk-stat-label {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .apk-stat-value {
-            color: var(--accent-secondary);
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .apk-download-btn {
-            width: 100%;
-            padding: 1rem;
             background: var(--gradient-primary);
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             color: white;
-            font-weight: 700;
-            font-size: 0.7rem;
+            font-weight: 600;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 16px rgba(123, 97, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .apk-download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(123, 97, 255, 0.4);
-        }
-
-        .close-details-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.3rem;
-            cursor: pointer;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            gap: 0.3rem;
         }
 
-        .close-details-btn:hover {
-            color: var(--neon-pink);
-            background: rgba(255, 0, 255, 0.2);
-            transform: rotate(90deg);
+        .download-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(123, 97, 255, 0.4);
         }
 
         .modal {
@@ -784,7 +645,7 @@
                 font-size: 0.75rem;
             }
 
-            .view-details-btn {
+            .download-btn {
                 padding: 0.6rem;
                 font-size: 0.85rem;
             }
@@ -862,38 +723,6 @@
         &copy; 2023-2025 <span style="color: var(--accent-secondary);">Maxx Apks Hub</span> | Download Latest Modded Apks By Maxx
       </p>
     </footer>
-
-    <div class="apk-details-modal" id="apkDetailsModal">
-        <div class="apk-details-content">
-            <button class="close-details-btn" id="closeDetailsModal">&times;</button>
-            <div class="apk-details-header">
-                <img src="" alt="" class="apk-details-image" id="detailsImage">
-                <h3 class="apk-details-title" id="detailsTitle">APK Name</h3>
-                <p class="apk-details-description" id="detailsDescription">APK Description</p>
-            </div>
-            <div class="apk-details-stats">
-                <div class="apk-stat-item">
-                    <div class="apk-stat-label">Downloads</div>
-                    <div class="apk-stat-value" id="detailsDownloads">1000+</div>
-                </div>
-                <div class="apk-stat-item">
-                    <div class="apk-stat-label">Size</div>
-                    <div class="apk-stat-value" id="detailsSize">10MB</div>
-                </div>
-                <div class="apk-stat-item">
-                    <div class="apk-stat-label">Version</div>
-                    <div class="apk-stat-value" id="detailsVersion">v2.5.1</div>
-                </div>
-                <div class="apk-stat-item">
-                    <div class="apk-stat-label">Rating</div>
-                    <div class="apk-stat-value" id="detailsRating">4.8★</div>
-                </div>
-            </div>
-            <button class="apk-download-btn" id="detailsDownloadBtn">
-                <i class="fas fa-download"></i> Download Premium APK
-            </button>
-        </div>
-    </div>
 
     <div class="modal" id="downloadModal">
         <div class="modal-content">
@@ -1031,33 +860,32 @@
                 }
             }
             
-draw() {
-
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
-    for (let i = 0; i < this.particles.length; i++) {
-        const p = this.particles[i];
-        
-        const gradient = this.ctx.createRadialGradient(
-            p.x, p.y, 0,
-            p.x, p.y, p.size * 3
-        );
-        gradient.addColorStop(0, p.color.replace('0.7', p.opacity.toString()));
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-        this.ctx.fillStyle = gradient;
-        this.ctx.fill();
-        
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        this.ctx.fillStyle = p.color.replace('0.7', (p.opacity + 0.2).toString());
-        this.ctx.fill();
-    }
-    
-    this.drawConnections();
-}
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                for (let i = 0; i < this.particles.length; i++) {
+                    const p = this.particles[i];
+                    
+                    const gradient = this.ctx.createRadialGradient(
+                        p.x, p.y, 0,
+                        p.x, p.y, p.size * 3
+                    );
+                    gradient.addColorStop(0, p.color.replace('0.7', p.opacity.toString()));
+                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.fill();
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color.replace('0.7', (p.opacity + 0.2).toString());
+                    this.ctx.fill();
+                }
+                
+                this.drawConnections();
+            }
             
             drawConnections() {
                 const maxDistance = window.innerWidth < 768 ? 80 : 150;
@@ -1097,7 +925,6 @@ draw() {
         let apksData = [];
         let filteredApks = [];
         let currentDownloadUrl = '';
-        let currentApkData = null;
         let clickedLinks = {
             telegram1: false,
             youtube: false,  
@@ -1114,17 +941,6 @@ draw() {
         const telegramLink2 = document.getElementById('telegramLink2');
         const instagramLink = document.getElementById('instagramLink');
         const youtubeLink = document.getElementById('youtubeLink');
-
-        const apkDetailsModal = document.getElementById('apkDetailsModal');
-        const closeDetailsModal = document.getElementById('closeDetailsModal');
-        const detailsImage = document.getElementById('detailsImage');
-        const detailsTitle = document.getElementById('detailsTitle');
-        const detailsDescription = document.getElementById('detailsDescription');
-        const detailsDownloads = document.getElementById('detailsDownloads');
-        const detailsSize = document.getElementById('detailsSize');
-        const detailsVersion = document.getElementById('detailsVersion');
-        const detailsRating = document.getElementById('detailsRating');
-        const detailsDownloadBtn = document.getElementById('detailsDownloadBtn');
 
         function showSkeletonLoading() {
             apksGrid.innerHTML = '';
@@ -1191,7 +1007,6 @@ draw() {
                 const apkCard = document.createElement('div');
                 apkCard.className = 'apk-card';
                 apkCard.style.animationDelay = (index * 0.1) + 's';
-                apkCard.onclick = () => openApkDetails(apk);
 
                 apkCard.innerHTML = `
                     <div class="apk-image-container">
@@ -1211,34 +1026,26 @@ draw() {
                             <span class="stat-item"><i class="fas fa-weight-hanging"></i> ${apk.size || '15MB'}</span>
                         </div>
                         <div class="apk-action">
-                            <button class="view-details-btn">View Details</button>
+                            <button class="download-btn" data-apk-id="${apk.id}">
+                                <i class="fas fa-download"></i> Download
+                            </button>
                         </div>
                     </div>
                 `;
 
+                // Add event listener to the download button
+                const downloadBtn = apkCard.querySelector('.download-btn');
+                downloadBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card click event
+                    if (apk.downloadLink) {
+                        openDownloadModal(apk.downloadLink);
+                    } else {
+                        alert('Download link not available. Please try again.');
+                    }
+                });
+
                 apksGrid.appendChild(apkCard);
             });
-        }
-
-        function openApkDetails(apk) {
-            currentApkData = apk;
-
-            detailsImage.src = `https://apks.urmaxx.in${apk.thumbnail}`;
-            detailsImage.alt = apk.name;
-            detailsTitle.textContent = apk.name;
-            detailsDescription.textContent = apk.description || 'Premium features unlocked with enhanced functionality and ad-free experience.';
-            detailsDownloads.textContent = apk.downloadCount || '1K+';
-            detailsSize.textContent = apk.size || '15MB';
-            detailsVersion.textContent = apk.version || 'v2.5.1';
-            detailsRating.textContent = apk.rating || '4.8★';
-
-            apkDetailsModal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeApkDetailsModal() {
-            apkDetailsModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
 
         function setupEventListeners() {
@@ -1259,23 +1066,6 @@ draw() {
 
                     renderApks();
                 }, 300);
-            });
-
-            closeDetailsModal.addEventListener('click', closeApkDetailsModal);
-
-            apkDetailsModal.addEventListener('click', function(e) {
-                if (e.target === apkDetailsModal) {
-                    closeApkDetailsModal();
-                }
-            });
-
-            detailsDownloadBtn.addEventListener('click', function() {
-                if (currentApkData && currentApkData.downloadLink) {
-                    openDownloadModal(currentApkData.downloadLink);
-                    closeApkDetailsModal();
-                } else {
-                    alert('Download link not available. Please try again.');
-                }
             });
 
             closeModal.addEventListener('click', closeDownloadModal);
@@ -1320,7 +1110,6 @@ draw() {
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeDownloadModal();
-                    closeApkDetailsModal();
                 }
             });
         }
@@ -1342,7 +1131,6 @@ draw() {
             downloadModal.style.display = 'none';
             document.body.style.overflow = 'auto';
             currentDownloadUrl = '';
-            currentApkData = null;
         }
 
         function checkAllLinksClicked() {
