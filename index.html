@@ -46,13 +46,24 @@
             position: relative;
         }
 
-        .background-animation {
+        /* Particle Background Styles */
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
+            pointer-events: none;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
             overflow: hidden;
             pointer-events: none;
         }
@@ -107,51 +118,7 @@
             }
         }
 
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            animation: float 12s infinite linear;
-            will-change: transform;
-        }
-
-        .particle.type-1 {
-            width: 4px;
-            height: 4px;
-            background: var(--neon-cyan);
-            box-shadow: 0 0 10px var(--neon-cyan);
-        }
-
-        .particle.type-2 {
-            width: 3px;
-            height: 3px;
-            background: var(--neon-pink);
-            box-shadow: 0 0 8px var(--neon-pink);
-        }
-
-        .particle.type-3 {
-            width: 5px;
-            height: 5px;
-            background: var(--neon-green);
-            box-shadow: 0 0 12px var(--neon-green);
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) translateX(100px) scale(0);
-                opacity: 0;
-            }
-        }
-
+        /* Rest of your existing CSS remains the same */
         .header {
             text-align: center;
             padding: 2rem 1rem;
@@ -838,6 +805,9 @@
     </style>
 </head>
 <body>
+    <!-- Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+    
     <div class="background-animation" id="backgroundAnimation">
         <div class="gradient-orbs orb-1"></div>
         <div class="gradient-orbs orb-2"></div>
@@ -931,6 +901,175 @@
     </div>
 
     <script>
+        // Particle System
+        class ParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particle-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.maxParticles = 80; // Reduced for better performance
+                this.particleCount = 0;
+                this.lastFrameTime = 0;
+                this.frameInterval = 1000 / 30; // Target 30 FPS for better performance
+                
+                this.init();
+                this.animate();
+                this.setupResize();
+            }
+            
+            init() {
+                this.resizeCanvas();
+                
+                // Create initial particles
+                for (let i = 0; i < this.maxParticles; i++) {
+                    this.createParticle();
+                }
+            }
+            
+            createParticle() {
+                const colors = [
+                    'rgba(0, 255, 255, 0.7)', // cyan
+                    'rgba(255, 0, 255, 0.7)', // pink
+                    'rgba(0, 255, 0, 0.7)',   // green
+                    'rgba(139, 92, 246, 0.7)', // purple
+                    'rgba(255, 107, 53, 0.7)', // orange
+                    'rgba(255, 255, 0, 0.7)',  // yellow
+                    'rgba(0, 128, 255, 0.7)'   // blue
+                ];
+                
+                const size = Math.random() * 3 + 1;
+                const x = Math.random() * this.canvas.width;
+                const y = Math.random() * this.canvas.height;
+                const speedX = (Math.random() - 0.5) * 0.5;
+                const speedY = (Math.random() - 0.5) * 0.5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                this.particles.push({
+                    x, y, size, speedX, speedY, color,
+                    opacity: Math.random() * 0.5 + 0.3,
+                    pulseSpeed: Math.random() * 0.02 + 0.01,
+                    pulseDirection: 1
+                });
+            }
+            
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            setupResize() {
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        this.resizeCanvas();
+                    }, 250);
+                });
+            }
+            
+            animate(currentTime = 0) {
+                // Throttle frame rate for better performance
+                if (currentTime - this.lastFrameTime > this.frameInterval) {
+                    this.update();
+                    this.draw();
+                    this.lastFrameTime = currentTime;
+                }
+                
+                requestAnimationFrame((time) => this.animate(time));
+            }
+            
+            update() {
+                for (let i = 0; i < this.particles.length; i++) {
+                    const p = this.particles[i];
+                    
+                    // Update position
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    
+                    // Bounce off edges
+                    if (p.x <= 0 || p.x >= this.canvas.width) p.speedX *= -1;
+                    if (p.y <= 0 || p.y >= this.canvas.height) p.speedY *= -1;
+                    
+                    // Pulsing effect
+                    p.opacity += p.pulseSpeed * p.pulseDirection;
+                    if (p.opacity >= 0.8 || p.opacity <= 0.3) {
+                        p.pulseDirection *= -1;
+                    }
+                }
+            }
+            
+            draw() {
+                // Clear canvas with a slight fade effect for trailing particles
+                this.ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw particles
+                for (let i = 0; i < this.particles.length; i++) {
+                    const p = this.particles[i];
+                    
+                    // Draw glow effect
+                    const gradient = this.ctx.createRadialGradient(
+                        p.x, p.y, 0,
+                        p.x, p.y, p.size * 3
+                    );
+                    gradient.addColorStop(0, p.color.replace('0.7', p.opacity.toString()));
+                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.fill();
+                    
+                    // Draw particle core
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = p.color.replace('0.7', (p.opacity + 0.2).toString());
+                    this.ctx.fill();
+                }
+                
+                // Draw connections between nearby particles
+                this.drawConnections();
+            }
+            
+            drawConnections() {
+                const maxDistance = 150;
+                
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const p1 = this.particles[i];
+                        const p2 = this.particles[j];
+                        
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < maxDistance) {
+                            const opacity = 1 - (distance / maxDistance);
+                            
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(p1.x, p1.y);
+                            this.ctx.lineTo(p2.x, p2.y);
+                            this.ctx.strokeStyle = `rgba(123, 97, 255, ${opacity * 0.2})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Initialize particle system when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particle system
+            new ParticleSystem();
+            
+            // Your existing code
+            showSkeletonLoading();
+            fetchApks();
+            setupEventListeners();
+        });
+
+        // Rest of your existing JavaScript code remains the same
         let apksData = [];
         let filteredApks = [];
         let currentDownloadUrl = '';
@@ -962,27 +1101,6 @@
         const detailsVersion = document.getElementById('detailsVersion');
         const detailsRating = document.getElementById('detailsRating');
         const detailsDownloadBtn = document.getElementById('detailsDownloadBtn');
-
-        document.addEventListener('DOMContentLoaded', function() {
-            createOptimizedBackgroundAnimation();
-            showSkeletonLoading();
-            fetchApks();
-            setupEventListeners();
-        });
-
-        function createOptimizedBackgroundAnimation() {
-            const backgroundAnimation = document.getElementById('backgroundAnimation');
-            
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                const particleType = Math.floor(Math.random() * 3) + 1;
-                particle.className = `particle type-${particleType}`;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 12 + 's';
-                particle.style.animationDuration = (Math.random() * 6 + 8) + 's';
-                backgroundAnimation.appendChild(particle);
-            }
-        }
 
         function showSkeletonLoading() {
             apksGrid.innerHTML = '';
